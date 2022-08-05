@@ -130,6 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'home'
 
-LOGIN_REDIRECT_URL = 'cats_index'
+LOGIN_REDIRECT_URL = 'ghosts_index'
 
 LOGOUT_REDIRECT_URL = 'home'
