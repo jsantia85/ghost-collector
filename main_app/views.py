@@ -57,7 +57,7 @@ def add_feeding(request, ghost_id):
 
 class ToyCreate(LoginRequiredMixin, CreateView):
   model = Toy
-  fields = fields = ['name', 'species', 'description', 'age']
+  fields = '__all__'
 
 class ToyList(LoginRequiredMixin, ListView):
   model = Toy
