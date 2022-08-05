@@ -26,6 +26,10 @@
       <h2>A {{ ghost.species }} ghost.</h2>
     {% endif %}
     <p>{{ ghost.description }}</p>
+    <div class="cat-actions">
+      <a href="{% url 'ghosts_update' ghost.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'ghosts_delete' ghost.id %}" class="btn danger">Delete</a>
+    </div>
   </div>
 </section>
 
