@@ -9,4 +9,5 @@ urlpatterns = [
   path('ghosts/create/', views.GhostCreate.as_view(), name='ghosts_create'),
   path('ghosts/<int:pk>/update/', views.GhostUpdate.as_view(), name='ghosts_update'),
   path('ghosts/<int:pk>/delete/', views.GhostDelete.as_view(), name='ghosts_delete'),
+  path('ghosts/<int:ghost_id>/add_feeding/', views.add_feeding, name='add_feeding'),
 ]

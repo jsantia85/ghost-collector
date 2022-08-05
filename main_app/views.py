@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Ghost
+from .forms import FeedingForm
 
 # Create your views here.
 def home(request):
@@ -15,7 +16,10 @@ def ghosts_index(request):
 
 def ghosts_detail(request, ghost_id):
   ghost = Ghost.objects.get(id=ghost_id)
-  return render(request, 'ghosts/detail.html', { 'ghost': ghost })
+  feeding_form = FeedingForm()
+  return render(request, 'ghosts/detail.html', {
+    'ghost': ghost, 'feeding_form': feeding_form
+  })
 
 class GhostCreate(CreateView):
   model = Ghost
@@ -28,3 +32,11 @@ class GhostUpdate(UpdateView):
 class GhostDelete(DeleteView):
   model = Ghost
   success_url = '/ghosts/'
+
+def add_feeding(request, ghost_id):
+  form = FeedingForm(request.POST)
+  if form.is_valid():
+    new_feeding = form.save(commit=False)
+    new_feeding.ghost_id = ghost_id
+    new_feeding.save()
+  return redirect('ghosts_detail', ghost_id=ghost_id)
