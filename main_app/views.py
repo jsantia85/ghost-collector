@@ -17,9 +17,10 @@ def ghosts_index(request):
 
 def ghosts_detail(request, ghost_id):
   ghost = Ghost.objects.get(id=ghost_id)
+  toys_ghost_doesnt_have = Toy.objects.exclude(id__in = ghost.toys.all().values_list('id'))
   feeding_form = FeedingForm()
   return render(request, 'ghosts/detail.html', {
-    'ghost': ghost, 'feeding_form': feeding_form
+    'ghost': ghost, 'feeding_form': feeding_form, 'toys': toys_ghost_doesnt_have
   })
 
 class GhostCreate(CreateView):
@@ -44,7 +45,7 @@ def add_feeding(request, ghost_id):
 
 class ToyCreate(CreateView):
   model = Toy
-  fields = '__all__'
+  fields = fields = ['name', 'species', 'description', 'age']
 
 class ToyList(ListView):
   model = Toy
@@ -59,3 +60,7 @@ class ToyUpdate(UpdateView):
 class ToyDelete(DeleteView):
   model = Toy
   success_url = '/toys/'
+
+def assoc_toy(request, ghost_id, toy_id):
+  Ghost.objects.get(id=ghost_id).toys.add(toy_id)
+  return redirect('ghosts_detail', ghost_id=ghost_id)
