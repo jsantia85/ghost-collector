@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link 
+  rel="stylesheet" 
+  type="text/css" 
+  href="{% static 'css/ghosts/ghost-detail.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="cat-container">
+  <div class="cat-img">
+    <img 
+      src="{% static 'images/sk8r-boi-cat.svg' %}" 
+      alt="A skater boy cat"
+    >
+  </div>
+  <div class="cat-details">
+    <h1>{{ ghost.name }}</h1>
+    {% if ghost.age > 0 %}
+      <h2>A {{ ghost.age }} year old {{ ghost.species }} ghost. </h2>
+    {% else %}
+      <h2>A {{ ghost.species }} ghost.</h2>
+    {% endif %}
+    <p>{{ ghost.description }}</p>
+  </div>
+</section>
+
+{% endblock %}

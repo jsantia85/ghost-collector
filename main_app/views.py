@@ -1,26 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Ghost
 
 # Create your views here.
 def home(request):
-  return HttpResponse('<h1>Hello ᓚᘏᗢ</h1>')
+  return render(request, 'home.html')
 
 def about(request):
   return render(request, 'about.html')
 
-class Ghost:
-  def __init__(self, name, species, description, age):
-    self.name = name
-    self.species = species
-    self.description = description
-    self.age = age
-
-ghosts = [
-  Ghost('Lolo', 'tabby', 'Kinda rude.', 3),
-  Ghost('Sachi', 'tortoiseshell', 'Looks like a turtle.', 0),
-  Ghost('Fancy', 'bombay', 'Happy fluff ball.', 4),
-  Ghost('Bonk', 'selkirk rex', 'Meows loudly.', 6)
-]
-
 def ghosts_index(request):
+  ghosts = Ghost.objects.all()
   return render(request, 'ghosts/index.html', { 'ghosts': ghosts })
+
+def ghosts_detail(request, ghost_id):
+  ghost = Ghost.objects.get(id=ghost_id)
+  return render(request, 'ghosts/detail.html', { 'ghost': ghost })
+
